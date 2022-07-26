@@ -231,7 +231,7 @@ string FF(string s1, string s2, string s3, int i)
 		return OR(OR(AND(s1, s2), AND(s1, s3)), AND(s2, s3));
 }
 
-string GG(string s1, string s2, string s3, int i) {//ÊµÏÖ²¼¶ûº¯ÊıGG¹¦ÄÜ
+string GG(string s1, string s2, string s3, int i) {//å®ç°å¸ƒå°”å‡½æ•°GGåŠŸèƒ½
 	if (0 <= i && i <= 15)
 		return XOR(XOR(s1, s2), s3);
 	else
@@ -241,7 +241,7 @@ string GG(string s1, string s2, string s3, int i) {//ÊµÏÖ²¼¶ûº¯ÊıGG¹¦ÄÜ
 string message_extension(string s)
 {
 	string r = s;
-	for (int i = 16; i < 68; i++) //17ÖÁ68Î»
+	for (int i = 16; i < 68; i++) //17è‡³68ä½
 		r += XOR(XOR(P1(XOR(XOR(r.substr((i - 16) * 8, 8), r.substr((i - 9) * 8, 8)), leftshift(r.substr((i - 3) * 8, 8), 15))), leftshift(r.substr((i - 13) * 8, 8), 7)), r.substr((i - 6) * 8, 8));
 	
 	for (int i = 0; i < 64; i++)
@@ -294,30 +294,11 @@ string iteration_compress(string s)
 int main()
 {
 	string s = "20220430";
-	cout << "Message:" << endl << s << endl << endl;
-
+	auto start = std::chrono::steady_clock::now();
 	string tmp = padding(s);
 	string r = iteration_compress(tmp);
-	cout << "Hash value:" << endl;
-	for (int i = 0; i < 8; i++)
-		cout << r.substr(i * 8, 8) << "  ";
-	cout << endl;
-
-
-
-
-	/*cout << "After padding:" << endl;
-	for (int i = 0; i < tmp.size() / 64; i++)
-	{
-		for (int j = 0; j < 8; j++)
-			cout << tmp.substr(i * 64 + j * 8, 8) << "  ";
-		cout << endl;
-	}
-	cout << endl;
-	
-	auto start = std::chrono::steady_clock::now();
 	auto end = std::chrono::steady_clock::now();
 	double t = std::chrono::duration<double, std::milli>(end - start).count();
-	printf("Time£º%.3fms\n\n", t);*/
+	printf("Timeï¼š%.2fms", t);
 }
 
