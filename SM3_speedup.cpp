@@ -151,7 +151,7 @@ void SM3(unsigned char* message, uint len, unsigned char* Hash)
 }
 void Thread4(unsigned char* message, uint len, unsigned char* Hash)
 {
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 250; i++)
 		SM3(message, len, Hash);
 }
 
@@ -167,7 +167,7 @@ void thread4(unsigned char* message, uint len, unsigned char* Hash)
 
 void Thread8(unsigned char* message, uint len, unsigned char* Hash)
 {
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 125; i++)
 		SM3(message, len, Hash);
 }
 
@@ -192,26 +192,27 @@ int main()
 		SM3(message, len, digest);
 	auto end = std::chrono::steady_clock::now();
 	double t = std::chrono::duration<double, std::milli>(end - start).count();
-	printf("Time_thread£º%.2fms\n", t);
+	printf("Time_threadï¼š%.2f ms\n", t);
 
 	start = std::chrono::steady_clock::now();
-	SM3(message, len, digest);
+	thread4(message, len, digest);
 	end = std::chrono::steady_clock::now();
-	t = std::chrono::duration<double, std::micro>(end - start).count();
-	printf("Time_4threads£º%.2f ¦Ìs\n", t);
+	t = std::chrono::duration<double, std::milli>(end - start).count();
+	printf("Time_4threadsï¼š%.2f ms\n", t);
 
 	start = std::chrono::steady_clock::now();
-	SM3(message, len, digest);
+	thread8(message, len, digest);
 	end = std::chrono::steady_clock::now();
-	t = std::chrono::duration<double, std::micro>(end - start).count();
-	printf("Time_8threads£º%.2f ¦Ìs\n", t);
+	t = std::chrono::duration<double, std::milli>(end - start).count();
+	printf("Time_8threadsï¼š%.2f ms\n\n", t);
 
-	/*printf("Message:\n%s\n\n", message);
+	printf("Message:\n%s\n\n", message);
 	printf("Digest:\n");
-	printer(digest, 32);*/
+	printer(digest, 32);
 
 	
 
 	return 0;
 }
+
 
