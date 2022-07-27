@@ -11,6 +11,10 @@ SM3 speedup
 
 git账户名称：baekhunee
 
+# 运行指导
+
+代码可以直接运行
+
 # 优化过程
 
 ## 重新实现SM3
